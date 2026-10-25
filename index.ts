@@ -6,7 +6,7 @@ const rl = readline.createInterface({ input, output });
 
 // ✍️ Escribe tu código aquí 👇
 
-/* (dia 9) https://github.com/JCerdanv/objetos-interfaces-nuevasfunciones.git */
+/* (dia 10 https://github.com/JCerdanv/Asincronismo.git */
 
 const systemName: string = "LogSystem";
 const version: number = 12.10;
@@ -58,7 +58,7 @@ const addTask = async (title: string): Promise<void> => {
       completed: false
     };
 
-    // pausa y simula base de datos antes de confirmar
+    // pausa 2 segundos y simula base de datos antes de confirmar
     await saveToDB(objetoTarea);
 
     tareaJ.push(objetoTarea);
@@ -69,27 +69,6 @@ const addTask = async (title: string): Promise<void> => {
     console.log(` > Error: ${error.message}`);
   }
 };
-
-
-
-// === funciones Arrow para cada opcion ===
-
-/*
-const addTask = (title: string): void => {
-  if (title.trim() !== "") { 
-    const objetoTarea: Tarea = { 
-      id: idContador, 
-      title: title.trim(), 
-      completed: false 
-    }; 
-    tareaJ.push(objetoTarea); 
-    console.log(` Tarea "[ID: ${idContador}] ${title}" se agregó.`); 
-    idContador++; 
-  } else { 
-    console.log(" > El titulo de la tarea no debe estar vacio."); 
-  }
-};
-*/
 
 const removeTask = (): void => {
   if (tareaJ.length > 0) { 
@@ -152,28 +131,26 @@ const listTasks = (): void => {
   } 
 };
 
-// === tareras ===
+// tareas
 
 do {   
-    console.log( `\n====m|     MENU DE TAREAS   v${version}   |m====`);
+    console.log( `\n====a|     MENU DE TAREAS   v${version}   |a====`);
     console.log( "     a  =  Agregar nueva tarea a lista  ");
     console.log( "     e  =  Eliminar ultima tarea de lista ");
     console.log( "     l  =  Lista de todas tareas ");
-
     console.log( "     m  =  Marcar tarea como completada ");
     console.log( "     p  =  Lista tareas pendientes ");
     console.log( "     c  =  Lista tareas completadas ");
-
     console.log( "     s  =  Salir del menu  ");
-
-    
   
     opcionJ = await rl.question("Elija una letra: "); 
   
     switch (opcionJ.trim().toLowerCase()) { 
     case "a": 
       const nuevaTarea = await rl.question("Ingresa el título de la tarea: "); 
-      addTask(nuevaTarea);
+      // await con pausa al menu mientras se guarda la tarea
+      // addTask(nuevaTarea);
+      await addTask(nuevaTarea);
       break; 
       
     case "e": 
