@@ -1,3 +1,5 @@
+// Jncv (dia 10 f)
+
 import readline from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';
 
@@ -6,13 +8,13 @@ const rl = readline.createInterface({ input, output });
 
 // ✍️ Escribe tu código aquí 👇
 
-/* (dia 9) https://github.com/JCerdanv/objetos-interfaces-nuevasfunciones.git */
+/* (dia 10 https://github.com/JCerdanv/Asincronismo.git */
 
 const systemName: string = "LogSystem";
-const version: number = 12.9;
+const version: number = 12.10;
 const userName: string = "JCerdan";
 
-console.log( "============== M * M =====================");
+console.log( "===============   A  =====================");
 console.log( "    Nombre del sisTema " + systemName + " v" + version);
 console.log( "    ¡Bienvenido, [" + userName + "]!");
 console.log( "==========================================\n");
@@ -31,30 +33,49 @@ let opcionJ: string = " ";
 // cambio el tipo de string[] a Tarea[]
 let tareaJ: Tarea[] = []; 
 
-// Contador agregar IDs únicos secuenciales
+// Contador agregar IDs unicos secuenciales
 let idContador: number = 1;
 
-// === funciones Arrow para cada opcion ===
+// 2. simular base de datos con una promesa 
+const saveToDB = (tarea: Tarea): Promise<void> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(`... [DB] Tarea "${tarea.title}" se guardó con exito en el servidor.`);
+      resolve();
+    }, 2000);
+  });
+};
 
-const addTask = (title: string): void => {
-  if (title.trim() !== "") { 
-    const objetoTarea: Tarea = { 
-      id: idContador, 
-      title: title.trim(), 
-      completed: false 
-    }; 
-    tareaJ.push(objetoTarea); 
-    console.log(` Tarea "[ID: ${idContador}] ${title}" se agregó.`); 
-    idContador++; 
-  } else { 
-    console.log(" > El titulo de la tarea no debe estar vacio."); 
+
+// addTask asincrona con await y manejo de errores con try/catch 
+const addTask = async (title: string): Promise<void> => {
+  try {
+    if (title.trim() === "") {
+      throw new Error(" > El título de la tarea no debe estar vacío.");
+    }
+
+    const objetoTarea: Tarea = {
+      id: idContador,
+      title: title.trim(),
+      completed: false
+    };
+
+    // pausa 2 segundos y simula base de datos antes de confirmar
+    await saveToDB(objetoTarea);
+
+    tareaJ.push(objetoTarea);
+    console.log(` Tarea "[ID: ${idContador}] ${title}" se agregó.`);
+    idContador++;
+
+  } catch (error: any) {
+    console.log(` > Error: ${error.message}`);
   }
 };
 
 const removeTask = (): void => {
   if (tareaJ.length > 0) { 
     const eliminada = tareaJ.pop(); 
-    console.log(` Se eliminó la última tarea: "${eliminada?.title}"`); 
+    console.log(` Se eliminó la ultima tarea: "${eliminada?.title}"`); 
   } else { 
     console.log(" > No hay tareas en lista por eliminar."); 
   }
@@ -112,10 +133,10 @@ const listTasks = (): void => {
   } 
 };
 
-// === tareras ===
+// tareas
 
 do {   
-    console.log( `\n====m|     MENU DE TAREAS   v${version}   |m====`);
+    console.log( `\n====a|     MENU DE TAREAS   v${version}   |a====`);
     console.log( "     a  =  Agregar nueva tarea a lista  ");
     console.log( "     e  =  Eliminar ultima tarea de lista ");
     console.log( "     l  =  Lista de todas tareas ");
@@ -123,16 +144,15 @@ do {
     console.log( "     p  =  Lista tareas pendientes ");
     console.log( "     c  =  Lista tareas completadas ");
     console.log( "     s  =  Salir del menu  ");
-    
-
+  
     opcionJ = await rl.question("Elija una letra: "); 
   
     switch (opcionJ.trim().toLowerCase()) { 
     case "a": 
-      const nuevaTarea = await rl.question("Ingresa el título de la tarea: ");         
-         // addTask(nuevaTarea);
-         // await para pausar el menú mientras se guarda la tarea
-         await addTask(nuevaTarea);
+      const nuevaTarea = await rl.question("Ingresa el título de la tarea: "); 
+      // await con pausa al menu mientras se guarda la tarea
+      // addTask(nuevaTarea);
+      await addTask(nuevaTarea);
       break; 
       
     case "e": 
@@ -175,9 +195,7 @@ do {
     } 
 } while (opcionJ.trim().toLowerCase() !== "s"); 
 
-
-
 // 🚫 No eliminar las líneas de abajo ⬇️
 rl.close();
 
-// Jncv (dia 10 c)
+// Jncv (dia 10 f)
