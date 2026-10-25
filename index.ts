@@ -34,8 +34,6 @@ let tareaJ: Tarea[] = [];
 // Contador agregar IDs únicos secuenciales
 let idContador: number = 1;
 
-
-
 // === funciones Arrow para cada opcion ===
 
 const addTask = (title: string): void => {
@@ -121,21 +119,20 @@ do {
     console.log( "     a  =  Agregar nueva tarea a lista  ");
     console.log( "     e  =  Eliminar ultima tarea de lista ");
     console.log( "     l  =  Lista de todas tareas ");
-
     console.log( "     m  =  Marcar tarea como completada ");
     console.log( "     p  =  Lista tareas pendientes ");
     console.log( "     c  =  Lista tareas completadas ");
-
     console.log( "     s  =  Salir del menu  ");
-
     
-  
+
     opcionJ = await rl.question("Elija una letra: "); 
   
     switch (opcionJ.trim().toLowerCase()) { 
     case "a": 
-      const nuevaTarea = await rl.question("Ingresa el título de la tarea: "); 
-      addTask(nuevaTarea);
+      const nuevaTarea = await rl.question("Ingresa el título de la tarea: ");         
+         // addTask(nuevaTarea);
+         // await para pausar el menú mientras se guarda la tarea
+         await addTask(nuevaTarea);
       break; 
       
     case "e": 
@@ -183,4 +180,4 @@ do {
 // 🚫 No eliminar las líneas de abajo ⬇️
 rl.close();
 
-// Jncv (dia 10)
+// Jncv (dia 10 c)
