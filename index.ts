@@ -1,5 +1,4 @@
-// Jncv (dia 10 f)
-
+// Jncv (dia 10 m)
 import readline from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';
 
@@ -11,7 +10,7 @@ const rl = readline.createInterface({ input, output });
 /* (dia 10 https://github.com/JCerdanv/Asincronismo.git */
 
 const systemName: string = "LogSystem";
-const version: number = 12.10;
+const version: number = 12.11;
 const userName: string = "JCerdan";
 
 console.log( "===============   A  =====================");
@@ -164,7 +163,7 @@ do {
       break;
 
     case "m":
-        if (!(tareaJ.length === 0)) {
+        if (tareaJ.length > 0) {
             const idInput = await rl.question("ID de la tarea a completar: ");
             const idParaCompletar = parseInt(idInput.trim(), 10);
             if (!isNaN(idParaCompletar)) {
@@ -198,4 +197,4 @@ do {
 // 🚫 No eliminar las líneas de abajo ⬇️
 rl.close();
 
-// Jncv (dia 10 f)
+// Jncv (dia 10 m)
