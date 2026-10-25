@@ -196,4 +196,4 @@ do {
 // 🚫 No eliminar las líneas de abajo ⬇️
 rl.close();
 
-// Jncv (dia 10)
+// Jncv (dia 10 f)
